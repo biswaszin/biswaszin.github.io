@@ -124,3 +124,37 @@ span {
   margin: 0 auto;
   padding: 0 15px;
 }
+
+
+/*Media Queries*/
+
+@media (max-width: 900px) {
+  .hero-section .container{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar .main-menu ul {
+    flex-wrap: wrap;
+  }
+
+  .avatar-icon {
+    width: 120px;
+    height: 120px;
+  }
+
+  .avatar {
+    justify-content: flex-start;
+  }
+}
