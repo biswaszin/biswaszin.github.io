@@ -18,7 +18,6 @@ body {
   font-size: 18px;
   color: #333;
   background: var(--primary-color);
-  background-image: url('images/1-the-backwater.jpg')
 }
 
 a {
