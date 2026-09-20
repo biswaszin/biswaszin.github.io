@@ -5,7 +5,7 @@
 }
 
 :root {
-  --primary-color: #FFE5ED;
+  --primary-color: #FFE5E5;
   --secondary-color: #333;
 }
 
@@ -78,7 +78,7 @@ span {
   font-weight: 400;
   font-style: normal;
   padding: 0 24px;
-  font-size: 64px;
+  font-size: 54px;
 }
 
 /* Hero */
@@ -99,6 +99,12 @@ span {
 .hero-text {
   width: 700px;
 }
+
+.hero-gears {
+  margin-top: 1.5rem;
+}
+
+
 /* Utility Classes */
 
 .container {
