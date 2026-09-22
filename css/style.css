@@ -60,13 +60,8 @@ span {
   inset: 0;
   z-index: 0;
   background: var(--ripple-color);
-  clip-path: circle(0px at var(--x) var(--y));
-  transition: clip-path var(--ripple-duration) ease-out;
+  clip-path: circle(0px);
   pointer-events: none;
-}
-
-.ripple.is-active {
-  clip-path: circle(150vmax at var(--x) var(--y));
 }
 
 .navbar,

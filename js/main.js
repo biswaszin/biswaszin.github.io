@@ -1,6 +1,6 @@
 const STATES = [
   { img: "images/reze.jpg", bg: "#FCBDBD", fg: "#382B2B" },
-  { img: "images/cozy.JPG", bg: "#0F0F0F", fg: "#E2E8F0" },
+  { img: "images/cozy.JPG", bg: "#121212", fg: "#FFF4DE" },
   { img: "images/rize.jpg", bg: "#2D1B4E", fg: "#F3E8FF" },
   { img: "images/cool.jpg", bg: "#4A5568", fg: "#F7FAFC" },
   { img: "images/star.jpg", bg: "#0A0A0A", fg: "#F5F5F5" },
@@ -44,8 +44,6 @@ button.addEventListener("click", (event) => {
 
   const ripple = document.createElement("span");
   ripple.className = "ripple";
-  ripple.style.setProperty("--x", event.clientX + "px");
-  ripple.style.setProperty("--y", event.clientY + "px");
   ripple.style.setProperty("--ripple-color", next.bg);
   document.body.appendChild(ripple);
 
@@ -58,9 +56,16 @@ button.addEventListener("click", (event) => {
     animating = false;
   };
 
-  ripple.addEventListener("transitionend", finish, { once: true });
-  setTimeout(finish, rippleDuration + 150);
+  const x = event.clientX;
+  const y = event.clientY;
+  const animation = ripple.animate(
+    [
+      { clipPath: `circle(0px at ${x}px ${y}px)` },
+      { clipPath: `circle(150vmax at ${x}px ${y}px)` },
+    ],
+    { duration: rippleDuration, easing: "ease-out", fill: "forwards" }
+  );
 
-  ripple.getBoundingClientRect();
-  ripple.classList.add("is-active");
+  animation.onfinish = finish;
+  setTimeout(finish, rippleDuration + 150);
 });
