@@ -5,8 +5,8 @@
 }
 
 :root {
-  --primary-color: #FFE5E5;
-  --secondary-color: #333;
+  --primary-color: #FCBDBD;
+  --secondary-color: #382B2B;
 }
 
 body {
@@ -16,13 +16,13 @@ body {
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
-  color: #333;
+  color: var(--secondary-color);
   background: var(--primary-color);
 }
 
 a {
   text-decoration: none;
-  color: #333;
+  color: var(--secondary-color);
 }
 
 ul {
