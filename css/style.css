@@ -45,19 +45,21 @@ span {
 
 /* Navbar */
 .navbar {
-  padding: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1rem, 3vw, 2.5rem) 0;
 }
 
 .navbar .container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 .navbar .main-menu ul{
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 12px;
 }
 
@@ -139,14 +141,18 @@ span {
   }
 }
 
-@media (max-width: 480px) {
-  .navbar .container {
+@media (max-width: 652px) {
+  .avatar {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .navbar .main-menu ul {
-    flex-wrap: wrap;
+  .avatar-name {
+    padding: 0;
+    width: 120px;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 1.5rem;
   }
 
   .avatar-icon {
@@ -154,7 +160,7 @@ span {
     height: 120px;
   }
 
-  .avatar {
-    justify-content: flex-start;
+  .hero-name {
+    font-size: clamp(1.5rem, 5vw, 2rem);
   }
 }
