@@ -7,6 +7,7 @@
 :root {
   --primary-color: #FCBDBD;
   --secondary-color: #382B2B;
+  --ripple-duration: 650ms;
 }
 
 body {
@@ -18,11 +19,13 @@ body {
   font-size: 18px;
   color: var(--secondary-color);
   background: var(--primary-color);
+  transition: color .35s ease;
 }
 
 a {
   text-decoration: none;
   color: var(--secondary-color);
+  transition: color .35s ease;
 }
 
 ul {
@@ -41,6 +44,41 @@ span {
   width: 180px;
   height: 180px;
   object-fit: contain;
+}
+
+.avatar-btn {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+}
+
+/* Ripple theme wipe */
+.ripple {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--ripple-color);
+  clip-path: circle(0px at var(--x) var(--y));
+  transition: clip-path var(--ripple-duration) ease-out;
+  pointer-events: none;
+}
+
+.ripple.is-active {
+  clip-path: circle(150vmax at var(--x) var(--y));
+}
+
+.navbar,
+.hero-section {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    display: none;
+  }
 }
 
 /* Navbar */
