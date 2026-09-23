@@ -171,4 +171,12 @@ span {
   .hero-name {
     font-size: clamp(1.5rem, 5vw, 2rem);
   }
+
+  .hero-links {
+    display: flex;
+  }
+
+  .hero-links li a {
+    padding: 0.75rem;
+  }
 }
