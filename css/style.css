@@ -49,6 +49,24 @@ span {
   background: none;
   cursor: pointer;
   line-height: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-hint {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: "Cascadia Code", "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #fff;
+  pointer-events: none;
+}
+
+.avatar-hint.hint-left {
+  left: 0;
+  right: auto;
 }
 
 /* Navbar */
@@ -166,6 +184,10 @@ span {
   .avatar-icon {
     width: 120px;
     height: 120px;
+  }
+
+  .avatar-hint {
+    font-size: 1rem;
   }
 
   .hero-name {
