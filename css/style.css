@@ -103,6 +103,10 @@ span {
   flex: 0 0 auto;
 }
 
+.hero-links {
+  width: min-content;
+}
+
 .hero-links li {
   display: flex;
   padding: 8px 0px;
@@ -174,6 +178,7 @@ span {
 
   .hero-links {
     display: flex;
+    width: auto;
   }
 
   .hero-links li a {
