@@ -22,7 +22,7 @@ function apply(state) {
   root.style.setProperty("--primary-color", state.bg);
   root.style.setProperty("--secondary-color", state.fg);
   avatar.src = state.img;
-  hint.textContent = state.icon;
+  hint.textContent = "[ " + state.icon + " ]";
   hint.style.color = state.iconColor;
   hint.classList.toggle("hint-left", state.side === "left");
 }
