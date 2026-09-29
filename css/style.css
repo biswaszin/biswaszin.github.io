@@ -196,11 +196,17 @@ span {
 
   .hero-links {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
     width: auto;
     min-width: 0;
   }
 
+  .hero-links li:last-child {
+    flex-basis: 100%;
+  }
+
   .hero-links li a {
-    padding: 0.75rem;
+    padding: 0;
   }
 }
