@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-
+import Navbar from "../components/navbar.astro";
 const { title = "bsws." } = Astro.props;
 ---
 
@@ -22,10 +22,10 @@ const { title = "bsws." } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Jacquard+12+Charted&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/png" href="images/favicon.ico" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/png" href="/images/favicon.ico" />
   </head>
   <body>
+    <Navbar />
     <slot />
   </body>
 </html>

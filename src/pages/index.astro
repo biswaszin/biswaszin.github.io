@@ -1,17 +1,42 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="bsws">
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-personal">
+        <h1 class="hero-name">[ Ankit Biswas ]</h1>
+
+        <ul class="hero-links">
+          <li>
+            <a href="https://github.com/biswaszin">github</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/biswaszin/">linkedin</a>
+          </li>
+          <li>
+            <a href="mailto:biswaszin@gmail.com">biswaszin[at]gmail.com</a>
+          </li>
+
+          <!--<li>
+            <p> to change into dark theme, click on the avatar </p>
+          </li>-->
+        </ul>
+      </div>
+
+      <div class="hero-text">
+        <p class="hero-content">
+          Hi! I'm <span>Ankit Biswas</span> (alias. biswaszin) Your favourite
+          cat whisperer, I <span>love</span> cats. I have like 6 cats hopping
+          around my home. Apart from the cat stuff, cuz I can't stop rambling
+          about them, the single reason why I'm even learning to build stuff is
+          because DOOM codebase inspired me more than it should have. Do I have
+          any idea about it? A bit. Am I gonna learn more about it?
+          <br />
+          Oh hell yeah. Absolutely.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
