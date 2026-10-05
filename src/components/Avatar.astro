@@ -1,3 +1,7 @@
+---
+const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
+---
+
 <script>
   const STATES = [
     { img: "/images/reze.jpg", bg: "#FCBDBD", fg: "#382B2B" },
@@ -49,7 +53,11 @@
 
 <div class="avatar">
   <button type="button" class="avatar-btn" aria-label="Change theme">
-    <img class="avatar-icon" src="/images/reze.jpg" alt="logo" />
+    <img
+      class="avatar-icon"
+      src={isCatsPage ? "/images/cat-avatar.jpg" : "/images/reze.jpg"}
+      alt="logo"
+    />
     <p class="avatar-poke">[ poke me ]</p>
   </button>
   <h1 class="avatar-name">[ biswaszin ]</h1>

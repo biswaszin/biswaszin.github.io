@@ -9,6 +9,11 @@
   --secondary-color: #382B2B;
 }
 
+html.theme-cat {
+  --primary-color: #FFFEFA;
+  --secondary-color: #382B2B;
+}
+
 body {
   font-family: "JetBrains Mono", sans-serif;
   font-optical-sizing: auto;

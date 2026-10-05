@@ -30,28 +30,54 @@ const cats = [
       <div class="cat-grid">
         {cats.map((cat) => (
           <article class="cat-card">
-            <Image src={cat.img} alt={cat.name} width={500} height={500} />
+            <Image src={cat.img} alt={cat.name} width={500} />
           </article>
         ))}
       </div>
+      <script is:inline>
+        const grid = document.querySelector(".cat-grid");
+        const cards = Array.from(grid.children);
+        for (let i = cards.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+        const scatter = window.innerWidth > 560;
+        cards.forEach((card) => {
+          if (scatter) card.style.marginTop = Math.floor(Math.random() * 121) + "px";
+          grid.appendChild(card);
+        });
+      </script>
     </div>
   </section>
 </Layout>
 
 <style>
   .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
+    columns: 4;
+    column-gap: 1.5rem;
   }
 
   .cat-card {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
     text-align: center;
   }
 
   .cat-card img {
     width: 100%;
     height: auto;
-    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 900px) {
+    .cat-grid {
+      columns: 2;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cat-grid {
+      columns: 1;
+    }
   }
 </style>
