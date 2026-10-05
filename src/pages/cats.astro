@@ -1,0 +1,58 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import bolt1 from "../assets/cat/bolt-1.jpg";
+import bolt2 from "../assets/cat/bolt-2.jpg";
+import bolt3 from "../assets/cat/bolt-3.jpg";
+import bolt4 from "../assets/cat/bolt-4.jpg";
+import monu2 from "../assets/cat/monu-2.jpg";
+import monu4 from "../assets/cat/monu-4.jpg";
+import monu5 from "../assets/cat/monu-5.jpg";
+import monu7 from "../assets/cat/monu-7.jpg";
+
+const cats = [
+  { name: "Bolt", img: bolt1 },
+  { name: "Bolt", img: bolt2 },
+  { name: "Bolt", img: bolt3 },
+  { name: "Bolt", img: bolt4 },
+  { name: "Monu", img: monu2 },
+  { name: "Monu", img: monu4 },
+  { name: "Monu", img: monu5 },
+  { name: "Monu", img: monu7 },
+];
+---
+
+<Layout title="cats(s)">
+  <section class="cats-section">
+    <div class="container">
+      <h1>[ my cats ]</h1>
+      <div class="cat-grid">
+        {cats.map((cat) => (
+          <article class="cat-card">
+            <Image src={cat.img} alt={cat.name} width={500} />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cat-card {
+    text-align: center;
+  }
+
+  .cat-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+</style>

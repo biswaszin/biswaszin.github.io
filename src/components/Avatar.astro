@@ -7,24 +7,43 @@
     { img: "/images/cool.jpg", bg: "#4A5568", fg: "#F7FAFC" },
   ];
 
+  const CAT_THEME = {
+    img: "/images/cat-avatar.jpg",
+    bg: "#FFFEFA",
+    fg: "#382B2B",
+  };
+
+  const isCatsPage = location.pathname.replace(/\/+$/, "") === "/cats";
+  if (isCatsPage) sessionStorage.setItem("catThemeUnlocked", "true");
+
+  const unlocked = sessionStorage.getItem("catThemeUnlocked") === "true";
+  const states = unlocked ? [...STATES, CAT_THEME] : [...STATES];
+
   const root = document.documentElement;
   const button = document.querySelector(".avatar-btn");
   const avatar = document.querySelector(".avatar-icon");
 
   let index = 0;
 
-  STATES.forEach((state) => {
+  function apply(state) {
+    root.style.setProperty("--primary-color", state.bg);
+    root.style.setProperty("--secondary-color", state.fg);
+    avatar.src = state.img;
+  }
+
+  states.forEach((state) => {
     const preload = new Image();
     preload.src = state.img;
   });
 
-  button.addEventListener("click", () => {
-    index = (index + 1) % STATES.length;
-    const next = STATES[index];
+  if (isCatsPage) {
+    index = states.length - 1;
+    apply(states[index]);
+  }
 
-    root.style.setProperty("--primary-color", next.bg);
-    root.style.setProperty("--secondary-color", next.fg);
-    avatar.src = next.img;
+  button.addEventListener("click", () => {
+    index = (index + 1) % states.length;
+    apply(states[index]);
   });
 </script>
 
