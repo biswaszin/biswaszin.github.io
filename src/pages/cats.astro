@@ -30,7 +30,7 @@ const cats = [
       <div class="cat-grid">
         {cats.map((cat) => (
           <article class="cat-card">
-            <Image src={cat.img} alt={cat.name} width={500} />
+            <Image src={cat.img} alt={cat.name} width={500} height={500} />
           </article>
         ))}
       </div>
@@ -53,6 +53,5 @@ const cats = [
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 8px;
   }
 </style>
