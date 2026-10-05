@@ -26,7 +26,7 @@ const cats = [
 <Layout title="cats(s)">
   <section class="cats-section">
     <div class="container">
-      <h1>[ my cats ]</h1>
+      <h1>[ meow ]</h1>
       <div class="cat-grid">
         {cats.map((cat) => (
           <article class="cat-card">
@@ -37,15 +37,44 @@ const cats = [
       <script is:inline>
         const grid = document.querySelector(".cat-grid");
         const cards = Array.from(grid.children);
+
         for (let i = cards.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [cards[i], cards[j]] = [cards[j], cards[i]];
         }
+
         const scatter = window.innerWidth > 560;
         cards.forEach((card) => {
-          if (scatter) card.style.marginTop = Math.floor(Math.random() * 121) + "px";
-          grid.appendChild(card);
+          if (scatter)
+            card.style.marginTop = Math.floor(Math.random() * 97) + "px";
         });
+
+        grid.classList.add("cat-grid--js");
+
+        function columnsForWidth() {
+          if (window.innerWidth > 900) return 4;
+          if (window.innerWidth > 560) return 2;
+          return 1;
+        }
+
+        let currentCols = 0;
+        function layout() {
+          const n = columnsForWidth();
+          if (n === currentCols) return;
+          currentCols = n;
+          grid.innerHTML = "";
+          const cols = [];
+          for (let i = 0; i < n; i++) {
+            const col = document.createElement("div");
+            col.className = "cat-col";
+            grid.appendChild(col);
+            cols.push(col);
+          }
+          cards.forEach((card, i) => cols[i % n].appendChild(card));
+        }
+
+        layout();
+        window.addEventListener("resize", layout);
       </script>
     </div>
   </section>
@@ -57,6 +86,19 @@ const cats = [
     column-gap: 1.5rem;
   }
 
+  .cat-grid--js {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .cat-col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
   .cat-card {
     break-inside: avoid;
     margin-bottom: 1.5rem;
@@ -66,7 +108,6 @@ const cats = [
   .cat-card img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
   }
 
   @media (max-width: 900px) {
