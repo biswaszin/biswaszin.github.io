@@ -1,12 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-// Add your friends' GitHub usernames here.
 const friends = ["AalbatrossGuy", "karshTD", "Greed4more", "Game-Glide"];
-
-// Fetch each avatar from the GitHub API at build time.
-// Falls back to github.com/<user>.png if the API call fails (e.g. rate-limited),
-// so the build never breaks and an avatar still renders.
 const profiles = await Promise.all(
   friends.map(async (user) => {
     try {
