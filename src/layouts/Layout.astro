@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
+import { STATES, CAT_THEME } from "../themes.js";
 const { title = "bsws." } = Astro.props;
 const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
 ---
@@ -24,9 +25,28 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="/images/favicon.ico" />
+    <!-- Apply the saved theme before first paint so page changes don't flash.
+         The /cats page is themed by html.theme-cat instead. -->
+    {!isCatsPage && (
+      <script is:inline define:vars={{ STATES, CAT_THEME }}>
+        try {
+          const states =
+            sessionStorage.getItem("catThemeUnlocked") === "true"
+              ? [...STATES, CAT_THEME]
+              : STATES;
+          const v = parseInt(localStorage.getItem("themeIndex"), 10);
+          const s = states[v >= 0 && v < states.length ? v : 0];
+          const root = document.documentElement;
+          root.style.setProperty("--primary-color", s.bg);
+          root.style.setProperty("--secondary-color", s.fg);
+        } catch (e) {}
+      </script>
+    )}
   </head>
   <body>
     <Navbar />
     <slot />
+    <!-- oneko cursor-chasing cat (black cat, white outline) -->
+    <script is:inline src="/oneko.js" data-cat="/images/oneko-blackcat.png"></script>
   </body>
 </html>

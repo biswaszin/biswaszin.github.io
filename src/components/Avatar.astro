@@ -1,21 +1,10 @@
 ---
+import { STATES, CAT_THEME } from "../themes.js";
 const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
 ---
 
 <script>
-  const STATES = [
-    { img: "/images/RukawaKaede.jpg", bg: "#e2e6e9", fg: "#382B2B" },
-    { img: "/images/star.jpg", bg: "#0A0A0A", fg: "#F5F5F5" },
-    { img: "/images/cozy.JPG", bg: "#121212", fg: "#FFF4DE" },
-    { img: "/images/reze.jpg", bg: "#FCBDBD", fg: "#382B2B" },
-    { img: "/images/cool.jpg", bg: "#4A5568", fg: "#F7FAFC" },
-  ];
-
-  const CAT_THEME = {
-    img: "/images/cat-avatar.jpg",
-    bg: "#FFFEFA",
-    fg: "#382B2B",
-  };
+  import { STATES, CAT_THEME } from "../themes.js";
 
   const isCatsPage = location.pathname.replace(/\/+$/, "") === "/cats";
   if (isCatsPage) sessionStorage.setItem("catThemeUnlocked", "true");
@@ -26,6 +15,21 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
   const root = document.documentElement;
   const button = document.querySelector(".avatar-btn");
   const avatar = document.querySelector(".avatar-icon");
+
+  const STORAGE_KEY = "themeIndex";
+  const saveIndex = (i) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, String(i));
+    } catch (e) {}
+  };
+  const loadIndex = () => {
+    try {
+      const v = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+      return Number.isInteger(v) ? v : 0;
+    } catch (e) {
+      return 0;
+    }
+  };
 
   let index = 0;
 
@@ -42,12 +46,16 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
 
   if (isCatsPage) {
     index = states.length - 1;
+  } else {
+    const saved = loadIndex();
+    index = saved >= 0 && saved < states.length ? saved : 0;
   }
   apply(states[index]);
 
   button.addEventListener("click", () => {
     index = (index + 1) % states.length;
     apply(states[index]);
+    saveIndex(index);
   });
 </script>
 
@@ -58,6 +66,21 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
       src={isCatsPage ? "/images/cat-avatar.jpg" : "/images/RukawaKaede.jpg"}
       alt="logo"
     />
+    <!-- Set the saved avatar image before first paint (no flash). -->
+    <script is:inline define:vars={{ STATES, CAT_THEME, isCatsPage }}>
+      if (!isCatsPage) {
+        try {
+          const states =
+            sessionStorage.getItem("catThemeUnlocked") === "true"
+              ? [...STATES, CAT_THEME]
+              : STATES;
+          const v = parseInt(localStorage.getItem("themeIndex"), 10);
+          if (v > 0 && v < states.length) {
+            document.querySelector(".avatar-icon").src = states[v].img;
+          }
+        } catch (e) {}
+      }
+    </script>
     <p class="avatar-poke">[ poke me ]</p>
   </button>
   <h1 class="avatar-name">[ biswaszin ]</h1>
