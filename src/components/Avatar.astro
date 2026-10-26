@@ -4,7 +4,7 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
 
 <script>
   const STATES = [
-    { img: "/images/ROSA.jpg", bg: "#DCD8E8", fg: "#382B2B" },
+    { img: "/images/RukawaKaede.jpg", bg: "#e2e6e9", fg: "#382B2B" },
     { img: "/images/star.jpg", bg: "#0A0A0A", fg: "#F5F5F5" },
     { img: "/images/cozy.JPG", bg: "#121212", fg: "#FFF4DE" },
     { img: "/images/reze.jpg", bg: "#FCBDBD", fg: "#382B2B" },
@@ -42,8 +42,8 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
 
   if (isCatsPage) {
     index = states.length - 1;
-    apply(states[index]);
   }
+  apply(states[index]);
 
   button.addEventListener("click", () => {
     index = (index + 1) % states.length;
@@ -55,7 +55,7 @@ const isCatsPage = Astro.url.pathname.replace(/\/+$/, "") === "/cats";
   <button type="button" class="avatar-btn" aria-label="Change theme">
     <img
       class="avatar-icon"
-      src={isCatsPage ? "/images/cat-avatar.jpg" : "/images/reze.jpg"}
+      src={isCatsPage ? "/images/cat-avatar.jpg" : "/images/RukawaKaede.jpg"}
       alt="logo"
     />
     <p class="avatar-poke">[ poke me ]</p>
