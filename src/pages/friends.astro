@@ -38,6 +38,121 @@ const profiles = await Promise.all(
           </a>
         ))}
       </div>
+
+      <script is:inline>
+        const grid = document.querySelector(".friends-grid");
+        const cards = Array.from(grid.querySelectorAll(".friend-card"));
+
+        const GAP = 14; // minimum space kept between cards
+        const AREA_H = 520; // height of the scatter area on desktop
+
+        function overlaps(a, b) {
+          return !(
+            a.x + a.w + GAP <= b.x ||
+            b.x + b.w + GAP <= a.x ||
+            a.y + a.h + GAP <= b.y ||
+            b.y + b.h + GAP <= a.y
+          );
+        }
+
+        function scatter() {
+          // On narrow screens keep the clean stacked flex layout.
+          if (window.innerWidth <= 560) {
+            grid.classList.remove("friends-grid--scatter");
+            grid.style.height = "";
+            cards.forEach((c) => {
+              c.style.left = "";
+              c.style.top = "";
+            });
+            return;
+          }
+
+          grid.classList.add("friends-grid--scatter");
+          grid.style.height = AREA_H + "px";
+
+          const areaW = grid.clientWidth;
+          const placed = [];
+
+          cards.forEach((card) => {
+            const w = card.offsetWidth;
+            const h = card.offsetHeight;
+            const maxX = Math.max(0, areaW - w);
+            const maxY = Math.max(0, AREA_H - h);
+
+            let pos = null;
+            for (let i = 0; i < 80; i++) {
+              const cand = { x: Math.random() * maxX, y: Math.random() * maxY, w, h };
+              if (!placed.some((p) => overlaps(cand, p))) {
+                pos = cand;
+                break;
+              }
+            }
+            // Give up gracefully after 80 tries (area too tight) and place anyway.
+            if (!pos) pos = { x: Math.random() * maxX, y: Math.random() * maxY, w, h };
+
+            placed.push(pos);
+            card.style.left = pos.x + "px";
+            card.style.top = pos.y + "px";
+          });
+        }
+
+        scatter();
+        window.addEventListener("resize", scatter);
+      </script>
     </div>
   </section>
 </Layout>
+
+<style>
+  .friends-section {
+    margin-top: 1.5rem;
+  }
+
+  .friends-section h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .friends-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  /* Added by JS on wide screens: absolute scatter inside the container. */
+  .friends-grid--scatter {
+    position: relative;
+    display: block;
+  }
+
+  .friends-grid--scatter .friend-card {
+    position: absolute;
+    margin: 0;
+  }
+
+  .friend-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem 0.75rem 0.75rem;
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+  }
+
+  .friend-avatar {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .friend-name {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .friend-card {
+      width: 100%;
+    }
+  }
+</style>
