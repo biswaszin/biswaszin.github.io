@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Add your friends' GitHub usernames here.
+const friends = ["AalbatrossGuy", "karshTD", "Greed4more", "Game-Glide"];
+
+// Fetch each avatar from the GitHub API at build time.
+// Falls back to github.com/<user>.png if the API call fails (e.g. rate-limited),
+// so the build never breaks and an avatar still renders.
+const profiles = await Promise.all(
+  friends.map(async (user) => {
+    try {
+      const res = await fetch(`https://api.github.com/users/${user}`);
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      return { user, avatar: data.avatar_url };
+    } catch {
+      return { user, avatar: `https://github.com/${user}.png` };
+    }
+  }),
+);
+---
+
+<Layout title="cool friends">
+  <section class="friends-section">
+    <div class="container">
+      <h1>[ cool friends ]</h1>
+      <div class="friends-grid">
+        {profiles.map((f) => (
+          <a
+            class="friend-card"
+            href={`https://github.com/${f.user}`}
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              class="friend-avatar"
+              src={f.avatar}
+              alt={f.user}
+              loading="lazy"
+            />
+            <span class="friend-name">{f.user}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
